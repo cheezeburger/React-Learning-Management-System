@@ -3,12 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-build-balloon": "^17.0.0",
+    "@ckeditor/ckeditor5-react": "^2.1.0",
+    "@react-firebase/auth": "^0.2.10",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "Dante2": "^0.5.0-rc50",
+    "alloyeditor": "^2.11.5",
+    "draft-js": "^0.11.4",
+    "firebase": "^7.8.2",
+    "prism": "^4.1.2",
+    "prismjs": "^1.19.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.3.1"
+    "react-draft-wysiwyg": "^1.14.4",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
+    "recompose": "^0.30.0",
+    "rsuite": "^4.2.1",
+    "suneditor-react": "^2.6.7"
   },
   "scripts": {
     "start": "react-scripts start",
