@@ -90,15 +90,17 @@ class AnnouncementsPanel extends Component{
            })
 
            enrolledCourses.forEach(course => {
-               Object.keys(course.announcements).forEach(aKey => {
-                    const date = new Date(course.announcements[aKey].createdOn).toLocaleString();
-                    announcements.push({
-                        courseTitle: course.title,
-                        content: course.announcements[aKey].content,
-                        createdOn: date,
-                        createdBy: course.announcements[aKey].createdBy,
+                if(course.announcements){
+                    Object.keys(course.announcements).forEach(aKey => {
+                        const date = new Date(course.announcements[aKey].createdOn).toLocaleString();
+                        announcements.push({
+                            courseTitle: course.title,
+                            content: course.announcements[aKey].content,
+                            createdOn: date,
+                            createdBy: course.announcements[aKey].createdBy,
+                        })
                     })
-               })
+                }
            })
            
             announcements = announcements.sort((a, b) => (a.createdOn < b.createdOn) ? 1 : ((b.createdOn < a.createdOn) ? -1 : 0));
