@@ -126,6 +126,7 @@ export default class Body extends React.Component {
 		const authUser = this.state.authUser;
 
 		if (!authUser) {
+			Alert.error('Login first')
 			this.props.history.push('/login');
 		} else {
 			this.props.firebase

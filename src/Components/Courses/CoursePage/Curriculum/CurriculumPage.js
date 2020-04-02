@@ -6,7 +6,7 @@ import 'suneditor/dist/css/suneditor.min.css';
 
 import { Container, Nav, Navbar, Icon } from 'rsuite';
 import withCurriculum from './withCurriculum';
-import { AuthUserContext, withAuthentication } from '../../../Session';
+import { AuthUserContext } from '../../../Session';
 
 class CurriculumPage extends React.Component{
     constructor(props){
@@ -31,25 +31,15 @@ class CurriculumPage extends React.Component{
     componentDidMount(){
         const curriId = this.props.match.params.id;
         const courseId = this.props.match.url.replace(/\/.*?\//g, '').replace(curriId, '');
-        console.log(curriId, courseId)
-        // this.props.firebase.courseCurriculums(`-${courseId}`)
-        //     .child(`-${curriId}`)
-        //     .once('value')
-        //     .then(snapshot=> {
-        //         // let {allowPreview} = snapshot.val();
-                
-        //         console.log('wut',snapshot.val());
-        //         // if((!!(allowPreview) == false && !this.props.firebase.auth.curentUser)){
-        //         //     this.props.history.push('/login');
-        //         // }
-        //     }
-        // )       
+        this.props.getCurriculum(courseId, curriId);
         
         this.props.firebase.courseCurriculums(`-${courseId}`)
             .child(`-${curriId}`)
+            .child('curriculumContent')
             .on('value', snapshot=> {
-                console.log(snapshot.val())
-            })
+                this.setState({contentState: snapshot.val()})
+            }
+        )
     }
 
     editToggle(){
@@ -75,7 +65,6 @@ class CurriculumPage extends React.Component{
     }
 
     render(){
-        console.log(this.props)
         return(
             <AuthUserContext.Consumer>
                 {authUser => {
@@ -164,7 +153,7 @@ class CurriculumPage extends React.Component{
                                                 ['image', 'link', 'video'],
                                             ],
                                         }}
-                                        setContents= {this.props.content? this.props.content: 'No curriculum content found...'}
+                                        setContents= {this.state.contentState? this.state.contentState: 'No curriculum content found...'}
                                         onChange= {this.editorOnChange}
                                     />
                                 </Container>                

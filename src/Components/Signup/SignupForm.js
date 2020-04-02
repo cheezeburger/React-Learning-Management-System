@@ -26,7 +26,7 @@ export default class SignupForm extends Component{
             errorPlacement: 'bottomStart',
             showEmailError: false,
             isFormSubmit: false,
-
+            referrer: '',
             ...INITIAL_STATE
         }
 
@@ -34,8 +34,10 @@ export default class SignupForm extends Component{
     }
     
     formSubmit(e) {
-        const { name, email, password, isAdmin } = this.state;
+        let { name, email, password, isAdmin, referrer } = this.state;
         const roles = {};
+        
+        isAdmin = referrer === 'INSTR' ? true : false;
 
         if(isAdmin){
             roles['userRole'] = 'admin';
@@ -78,6 +80,7 @@ export default class SignupForm extends Component{
                             name: formValue.name,
                             email: formValue.email,
                             password: formValue.password,
+                            referrer: formValue.referrer, 
                         });
                     }}>
                     <FormGroup>
@@ -106,6 +109,15 @@ export default class SignupForm extends Component{
                             errorMessage= {passwordErrorMessage}
                             errorPlacement= {errorPlacement}
                             type= "password"
+                        />
+                    </FormGroup>
+
+                    <FormGroup
+                        style={{type:"password"}}    
+                    >
+                        <ControlLabel>Referrer (Optional)</ControlLabel>
+                        <FormControl 
+                            name="referrer"
                         />
                     </FormGroup>
 
