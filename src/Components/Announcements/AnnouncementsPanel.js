@@ -42,15 +42,10 @@ class AnnouncementsPanel extends Component{
                     })
                 })
             })
-            console.log(announcements)
             announcements = announcements.sort((a, b) => (a.createdOn < b.createdOn) ? 1 : ((b.createdOn < a.createdOn) ? -1 : 0)); 
 
             return(
                 <div style={{flex: 1}}>
-                    <Divider>Submissions</Divider>
-                        <p style={{textAlign: 'center', fontStyle: 'italic'}}>Nothing new...</p> 
-                    <Divider>Created by Me</Divider>
-
                     {announcements.length? 
                         announcements.map((a, i) => {
                             return(
@@ -106,19 +101,15 @@ class AnnouncementsPanel extends Component{
             announcements = announcements.sort((a, b) => (a.createdOn < b.createdOn) ? 1 : ((b.createdOn < a.createdOn) ? -1 : 0));
             return(
                 <div style={{flex: 1}}>
-                    <Divider>Submissions</Divider>
-                        <p style={{textAlign: 'center', fontStyle: 'italic'}}>Nothing new...</p> 
-                    <Divider>Announcements</Divider>
-
                     {announcements.length? 
                         announcements.map((a, i) => {
                             return(
-                                <>
+                                <div key={i}>
                                     <Tag color="violet">{a.courseTitle}</Tag>
                                     <Tag>{a.createdOn} - <span style={{fontWeight: 'bold'}}>{a.createdBy? a.createdBy: 'Unknown'}</span></Tag>
                                     <p>{a.content}</p>
                                     <br/>
-                                </>
+                                </div>
                             )
                         })
                     :   <p style={{textAlign: 'center'}}>No announcements have been created...</p>    

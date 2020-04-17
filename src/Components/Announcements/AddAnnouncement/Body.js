@@ -3,15 +3,12 @@ import {
 	Container,
 	FormGroup,
 	Form,
-	Input,
 	FormControl,
 	ControlLabel,
 	SelectPicker,
 	Button,
 	ButtonToolbar,
 	Alert,
-	Uploader,
-	Icon
 } from "rsuite";
 
 class Body extends React.Component{
@@ -33,7 +30,6 @@ class Body extends React.Component{
 
 	formSubmit() {
 		const { courseId, announcement } = this.state.formValue;
-        const uid = this.props.firebase.auth.currentUser.uid;
 
         console.log(courseId);
 		if (!courseId ||!announcement) {

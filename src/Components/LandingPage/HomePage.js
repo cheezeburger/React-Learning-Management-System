@@ -12,7 +12,7 @@ class HomePage extends Component {
 		return(
 			<div>
 			<TopNavBar/>
-				<Container style= {{ flex: 1, flexDirection: 'row', backgroundColor: '#3498ff',minHeight: '500px'}}>
+				<Container style= {{ flex: 1, flexDirection: 'row', backgroundColor: '#3498ff', minHeight: '500px'}}>
 					<Container style={{margin: '100px', color: 'white'}}>
 						<h1 style={{lineHeight: '80px', marginBottom: '15px'}}>The Most Trusted <br/>Simplified LMS</h1>
 						<p>The #1 featured product on ProductHunt and a featured LMS on People's Choice Magazine.</p>

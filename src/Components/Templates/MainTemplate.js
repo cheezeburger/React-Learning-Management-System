@@ -12,7 +12,7 @@ const mainTemplate = (Header, BreadCrumb, Body) =>{
                 <AuthUserContext.Consumer>
                     {authUser => {
                         const flexDir = authUser? 'row': 'column';
-                        console.log(authUser)
+
                         return(
                             <Container style={{flex: 1, flexDirection: flexDir, minHeight: '100%'}}>
                             {

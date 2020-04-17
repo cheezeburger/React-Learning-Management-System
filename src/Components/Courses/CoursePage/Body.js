@@ -7,7 +7,8 @@ import {
 	PanelGroup,
 	Modal,
 	Alert,
-	Loader
+	Loader,
+	Table
 } from 'rsuite';
 import CurriculumModal from './Curriculum/CurriculumModal';
 import { NavLink, Link } from 'react-router-dom';
@@ -67,7 +68,7 @@ export default class Body extends React.Component {
 		this.setState({ showAssignmentModal: !this.state.showAssignmentModal });
 	}
 
-	renderEnrollButton(isCourseCreator, authUser, enrolledCourses, courseId) {
+	renderEnrollButton(isCourseCreator, authUser, enrolledToCourse, courseId) {
 		if (isCourseCreator) {
 			return (
 				<>
@@ -93,9 +94,7 @@ export default class Body extends React.Component {
 				</>
 			);
 		} else if (
-			(authUser && authUser.roles.userRole === 'admin') ||
-			(enrolledCourses && enrolledCourses.includes(courseId))
-		) {
+			(authUser && authUser.roles.userRole === 'admin') || enrolledToCourse) {
 			return (
 				<Button
 					appearance='default'
@@ -140,15 +139,21 @@ export default class Body extends React.Component {
 					}
 				})
 				.then(rsp => {
+					const date = Date.now();
+
 					Alert.success('Successfully enrolled to course.');
+					this.props.firebase.course(`-${this.props.match.params.id}`).child('students').push({
+						studId: authUser.uid,
+						joinedOn: date,
+					})
 				});
 		}
 	}
 
-	renderCurriculum( allowPreview, isCourseCreator, item, enrolledCourses) {
+	renderCurriculum( allowPreview, isCourseCreator, item, enrolledToCourse) {
         const cid = this.props.match.params.id;
 
-        if (allowPreview || isCourseCreator || (enrolledCourses && enrolledCourses.includes(cid))) {
+        if (allowPreview || isCourseCreator || enrolledToCourse) {
 			return (
 				<NavLink
 					to={`/courses/${this.props.match.params.id}/curriculum/${item.curriculumId}`}>
@@ -158,6 +163,15 @@ export default class Body extends React.Component {
 		} else {
 			return <p>{item.shortDescription}</p>;
 		}
+	}
+
+	renderAssignments = (assignment) => {
+		return(
+			<NavLink
+				to={`/courses/${this.props.match.params.id}/assignment/${assignment.assignmentId.substr(1)}`}>
+				{assignment.title}
+			</NavLink>
+		)
 	}
 
 	componentDidMount() {
@@ -173,7 +187,7 @@ export default class Body extends React.Component {
 
 	render() {
 		let coursesCreated      = null;
-		let enrolledCourses     = null;
+		let enrolledToCourse    = null;
 		let isCourseCreator     = null;
 		const courseId          = this.props.match.params.id;
 		const authUser          = this.state.authUser ? this.state.authUser : null;
@@ -185,7 +199,8 @@ export default class Body extends React.Component {
 			duration,
 			prerequisite,
 			title,
-			curriculum
+			curriculum,
+			assignments,
 		} = this.state.course ? this.state.course : {};
 
 		if (this.state.course) {
@@ -193,6 +208,14 @@ export default class Body extends React.Component {
 				curriculum = Object.keys(curriculum).map(key => ({
 					...curriculum[key],
 					curriculumId: key.substr(1)
+				}));
+				console.log('curriculum:', curriculum)
+			}
+
+			if(assignments){
+				assignments = Object.keys(assignments).map(key => ({
+					...assignments[key],
+					assignmentId: key
 				}));
 			}
 
@@ -215,22 +238,21 @@ export default class Body extends React.Component {
 		}
 
 		if (authUser && authUser.enrolledCourses) {
-			enrolledCourses = authUser.enrolledCourses;
-			const keys = Object.keys(enrolledCourses);
+			enrolledToCourse = authUser.enrolledCourses;
+			console.log('assignments',enrolledToCourse)
 
-			enrolledCourses = keys.map(key => {
-				return enrolledCourses[key];
+			const keys = Object.keys(enrolledToCourse);
+
+			enrolledToCourse = keys.map(key => {
+				return enrolledToCourse[key];
 			});
 
-			enrolledCourses = enrolledCourses.map(item => {
+			enrolledToCourse = enrolledToCourse.map(item => {
 				return item.courseId;
 			});
-			console.log(
-				enrolledCourses,
-				'asdljasdlkhasljfcbszjbdgkleshjbgfkslhbgfkl'
-			);
-		}
 
+			enrolledToCourse = enrolledToCourse.includes(courseId);
+		}
 		return (
 			<div>
 				<div className='modal-container'>
@@ -330,10 +352,11 @@ export default class Body extends React.Component {
 												minHeight: '80px'
 											}}>
 											{curriculum ? (
-												curriculum.map(item => {
+												curriculum.map((item, i) => {
 													const allowPreview = !!item.allowPreview;
 													return (
 														<Panel
+														key={i}
 															header={item.title}
 															eventKey={
 																item.curriculumId
@@ -342,7 +365,7 @@ export default class Body extends React.Component {
 																allowPreview,
 																isCourseCreator,
 																item,
-																enrolledCourses,
+																enrolledToCourse,
 															)}
 														</Panel>
 													);
@@ -355,10 +378,7 @@ export default class Body extends React.Component {
 											{authUser && isCourseCreator ? (
 												<Button
 													appearance='subtle'
-													onClick={
-														this
-															.curriculumModalToggle
-													}>
+													onClick={this.curriculumModalToggle}>
 													+ Add curriculum
 												</Button>
 											) : null}
@@ -372,18 +392,93 @@ export default class Body extends React.Component {
 											}}>
 											Assignments
 										</h4>
-										<PanelGroup>
+										{	(enrolledToCourse || authUser && authUser.roles.userRole === 'admin')?
+											<Panel header="Assignments" bordered bodyFill>
+												<Table height={400} data={assignments} style={{fontSize: '12px'}}>
+													<Table.Column width={50} align="center" resizable>
+														<Table.HeaderCell>Id</Table.HeaderCell>
+														<Table.Cell dataKey="assignmentId"/>
+													</Table.Column>
+
+													<Table.Column flexGrow={1} align="center" fixed>
+														<Table.HeaderCell>Assignment Title</Table.HeaderCell>
+														<Table.Cell dataKey="title"/>
+													</Table.Column>
+
+													<Table.Column width={80} align="center" fixed>
+														<Table.HeaderCell>Type</Table.HeaderCell>
+														<Table.Cell dataKey="type"/>
+													</Table.Column>
+
+													<Table.Column width={110} align="center" fixed="right">
+														<Table.HeaderCell>Action</Table.HeaderCell>
+														<Table.Cell>
+															{rowData => {
+																if(rowData.type === 'subjective'){
+																	return(
+																		<NavLink to={`/courses/${this.props.match.params.id}/assignment/${rowData.assignmentId.substr(1)}`}>
+																			<Button>View</Button>
+																		</NavLink>
+																	)
+																}
+																else{
+																	return(
+																		<a href={rowData.attachmentUrl}>
+																			<Button>View</Button>
+																		</a>
+																	)
+																}
+															}}
+														</Table.Cell>
+													</Table.Column>
+												</Table>
+												{authUser && isCourseCreator ? (
+													<Button
+														appearance='subtle'
+														onClick={
+															this.assignmentModalToggle
+														}>
+														+ Add assignments
+													</Button>
+												) : null}
+											</Panel>
+											: <p style={{fontSize: '12px'}}>Enroll to view assignments...</p>
+										}
+										{/* <PanelGroup
+											style={{
+												backgroundColor: '#fffff0',
+												minHeight: '80px'
+											}}>	
+											{assignments ? (
+												assignments.map((item, i) => {
+													let curi = curriculum.filter(curri => {
+														return curri.curriculumId === item.curriId.substr(1);
+													})
+
+													return (
+														<Panel
+															key={i}
+															header={curi[0].title}
+														>
+															{this.renderAssignments(item)}
+														</Panel>
+													);
+												})
+											) : (
+												<Container>
+													<Panel header='No assignments found...' />
+												</Container>
+											)}
 											{authUser && isCourseCreator ? (
 												<Button
 													appearance='subtle'
 													onClick={
-														this
-															.assignmentModalToggle
+														this.assignmentModalToggle
 													}>
 													+ Add assignments
 												</Button>
 											) : null}
-										</PanelGroup>
+										</PanelGroup> */}
 									</Container>
 								</>
 							)}
@@ -424,7 +519,7 @@ export default class Body extends React.Component {
 								{this.renderEnrollButton(
 									isCourseCreator,
 									authUser,
-									enrolledCourses,
+									enrolledToCourse,
 									courseId
 								)}
 							</Container>

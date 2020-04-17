@@ -57,7 +57,8 @@ class AdminCoursePalette extends React.Component{
 								courses.map((course, i)=> {
 									let curriculum = course.course.curriculum || {};
 									curriculum = curriculum? Object.keys(curriculum).length: 0;
-
+                                    console.log(course);
+                                    let students = course.course.students? Object.keys(course.course.students).length : 0;
 									return(
 										<>
 											<NavLink to={`/courses/${course.id}`} style={{textDecoration:'none', color: '#575757'}}>
@@ -81,13 +82,14 @@ class AdminCoursePalette extends React.Component{
 														<FlexboxGrid.Item colspan={3}>
 															<div style={{ textAlign: 'right' }}>
 																<div style={slimText}>Students</div>
+                                                                <div style={dataStyle}>{students}</div>
 															</div>
 														</FlexboxGrid.Item>
 
 														<FlexboxGrid.Item colspan={3}>
 															<div style={{ textAlign: 'right' }}>
 																<div style={slimText}>Curriculums</div>
-															<div style={dataStyle}>{curriculum}</div>
+															    <div style={dataStyle}>{curriculum}</div>
 															</div>
 														</FlexboxGrid.Item>
 

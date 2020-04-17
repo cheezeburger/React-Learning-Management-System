@@ -16,22 +16,34 @@ import CoursePage from './Components/Courses/CoursePage';
 import CurriculumPage from './Components/Courses/CoursePage/Curriculum/CurriculumPage';
 import Announcement from './Components/Announcements/AddAnnouncement';
 import AllCourses from './Components/Courses/AllCourses';
+import AssignmentPage from './Components/Courses/CoursePage/Assignment/AssignmentPage';
+import AdminSubmission from './Components/Courses/CoursePage/Assignment/AdminSubmission';
 
 const App = () => (
-  <Router>
-    <div>
-      <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/dashboard" component={Dashboard}/>
-        <Route exact path="/courses" component={AllCourses}/>
-        <Route exact path="/course/add" component={AddCourses}/>
-        <Route exact path="/announcement/add" component={Announcement} />
-        <Route exact path="/course/edit/:id" component={EditCourses}/>
-        <Route exact path="/courses/:id" component={CoursePage}/>
-        <Route exact path="/courses/:id/curriculum/:id" component={CurriculumPage}/>
-    </div>
-  </Router>
-)
+    <Router>
+        <div>
+            <Route exact path='/' component={HomePage} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/signup' component={SignUp} />
+            <Route exact path='/dashboard' component={Dashboard} />
+            <Route exact path='/courses' component={AllCourses} />
+            <Route exact path='/course/add' component={AddCourses} />
+            <Route exact path='/announcement/add' component={Announcement} />
+            <Route exact path='/course/edit/:id' component={EditCourses} />
+            <Route exact path='/courses/:id' component={CoursePage} />
+            <Route exact path='/submissions' component={AdminSubmission} />
+            <Route
+                exact
+                path='/courses/:id/curriculum/:id'
+                component={CurriculumPage}
+            />
+            <Route
+                exact
+                path='/courses/:id/assignment/:id'
+                component={AssignmentPage}
+            />
+        </div>
+    </Router>
+);
 
 export default withAuthentication(App);

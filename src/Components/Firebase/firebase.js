@@ -49,6 +49,7 @@ class Firebase {
 	courses = () => this.db.ref("courses");
 	courseCurriculums = cid => this.db.ref(`courses/${cid}/curriculum`);
 
+	assignments = cid => this.db.ref(`courses/${cid}/assignments`)
 	// Database ref
 	assignmentRef = () => this.storage.ref().child('assignments');
 	

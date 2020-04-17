@@ -15,10 +15,6 @@ const withCurriculum = Component => {
 
         }
 
-        componentDidMount(){
-            
-        }
-
         getCurriculum(courseId, curriId){
             this.props.firebase.courseCurriculums(courseId).child(curriId).child('curriculumContent').once('value').then(snapshot => {
                 this.setState({content: snapshot.val()});
