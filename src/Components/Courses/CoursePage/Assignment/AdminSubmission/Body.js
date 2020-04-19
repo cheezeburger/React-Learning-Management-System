@@ -97,9 +97,8 @@ export default class Body extends React.Component {
                         const keys = Object.keys(course);
                         return keys.includes(assId);
                     }
-
                 });
-
+                
                 assignments = assignments[0][assId].questions;
 
                 this.setState({

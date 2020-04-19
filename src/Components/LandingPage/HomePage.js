@@ -16,7 +16,7 @@ class HomePage extends Component {
 					<Container style={{margin: '100px', color: 'white'}}>
 						<h1 style={{lineHeight: '80px', marginBottom: '15px'}}>The Most Trusted <br/>Simplified LMS</h1>
 						<p>The #1 featured product on ProductHunt and a featured LMS on People's Choice Magazine.</p>
-						<Button style={{marginTop: '20px', width: '150px'}}><NavLink to='/dashboard' style={{textDecoration: 'none', color:'#575757'}}>Get Started</NavLink></Button>
+						<Button style={{marginTop: '20px', width: '150px'}}><NavLink to='/courses' style={{textDecoration: 'none', color:'#575757'}}>Get Started</NavLink></Button>
 					</Container>
 					<Container style={{margin: '80px', color: 'white'}}>
 						<img src={headerImg} style={{width: '350px', height: '250'}} alt=''></img>
