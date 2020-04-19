@@ -82,7 +82,8 @@ export default class SignupForm extends Component{
                             password: formValue.password,
                             referrer: formValue.referrer, 
                         });
-                    }}>
+                    }}
+                    >
                     <FormGroup>
                         <ControlLabel>Full Name</ControlLabel>
                         <FormControl 

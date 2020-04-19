@@ -35,6 +35,7 @@ export default class Body extends React.Component {
 	}
 	componentWillMount() {
 		this.retrievePageCourse(this.props.match.params.id);
+		window.scrollTo(0, 0);
 	}
 
 	retrievePageCourse(id) {
@@ -511,7 +512,7 @@ export default class Body extends React.Component {
 									style={{ fontSize: '1em' }}
 									icon='universal-access'
 								/>
-								<p style={{ paddingLeft: '12px' }}>
+								<p style={{ paddingLeft: '10px', fontSize: '15px' }}>
 									{levelOfStudy}
 								</p>
 							</Container>

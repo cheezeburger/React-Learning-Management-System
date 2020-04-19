@@ -60,11 +60,14 @@ class Body extends React.Component {
 			},
 			featureImage: null,
 			uploading: false,
+			createCourseBtnShow: false,
 		};
 		this.formSubmit = this.formSubmit.bind(this);
 	}
 
 	formSubmit() {
+		this.setState({createCourseBtnShow: true});
+
 		const {
 			title,
 			qualification,
@@ -84,6 +87,7 @@ class Body extends React.Component {
 			!this.state.setFileInfo
 		) {
 			Alert.error("Please fill in all fields.", 5000);
+			this.setState({createCourseBtnShow: false});
 		} else {
 			this.props.firebase
 				.courses()
@@ -104,6 +108,7 @@ class Body extends React.Component {
 								"An error occurred while creating course. Please try again.",
 								5000
 							);
+							this.setState({createCourseBtnShow: false});
 						}
 					}
 				)
@@ -114,7 +119,10 @@ class Body extends React.Component {
 						.child("coursesCreated")
 						.push({ courseId });
 					this.props.history.push(`/courses/${courseId}`);
-				});
+				})
+				.catch(err =>{
+					console.log(err);
+				})
 		}
 	}
 
@@ -211,7 +219,7 @@ class Body extends React.Component {
 							</FormGroup>
 							<FormGroup>
 								<ButtonToolbar>
-									<Button appearance="ghost" onClick={this.formSubmit}>
+									<Button disabled={this.state.createCourseBtnShow} appearance="ghost" onClick={this.formSubmit}>
 										Create
 									</Button>
 								</ButtonToolbar>
