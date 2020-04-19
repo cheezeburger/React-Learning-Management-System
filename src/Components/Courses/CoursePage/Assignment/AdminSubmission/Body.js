@@ -93,9 +93,11 @@ export default class Body extends React.Component {
                 });
 
                 assignments = assignments.filter((course, i) => {
-                    const keys = Object.keys(course);
+                    if(course){
+                        const keys = Object.keys(course);
+                        return keys.includes(assId);
+                    }
 
-                    return keys.includes(assId);
                 });
 
                 assignments = assignments[0][assId].questions;
