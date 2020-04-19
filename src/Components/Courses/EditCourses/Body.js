@@ -11,7 +11,6 @@ import {
 	Alert,
 	Uploader,
 	InputNumber,
-	Icon
 } from "rsuite";
 
 const qualificationData = [
@@ -31,17 +30,6 @@ const difficultyLevel = [
 	{ label: "Fundamental-Advanced", value: "fundamental-advanced" },
 	{ label: "Other", value: "other" }
 ];
-
-const durationAcceptor = ({ onChange }) => {
-	return (
-		<InputNumber
-			onChange={e => {
-				onChange(e);
-			}}
-			style={{ width: "90px" }}
-		/>
-	);
-};
 
 class Body extends React.Component {
 	constructor(props) {
@@ -143,7 +131,6 @@ class Body extends React.Component {
 								fileListVisible={false}
 								action="/"
 								onUpload={file => {
-									console.log(file);
 									this.setState({ uploading: true });
 									this.previewFile(file.blobFile, value => {
 										this.setState({ setFileInfo: value});

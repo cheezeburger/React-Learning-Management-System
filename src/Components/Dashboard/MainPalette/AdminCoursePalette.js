@@ -57,7 +57,6 @@ class AdminCoursePalette extends React.Component{
 								courses.map((course, i)=> {
 									let curriculum = course.course.curriculum || {};
 									curriculum = curriculum? Object.keys(curriculum).length: 0;
-                                    console.log(course);
                                     let students = course.course.students? Object.keys(course.course.students).length : 0;
 									return(
 										<>

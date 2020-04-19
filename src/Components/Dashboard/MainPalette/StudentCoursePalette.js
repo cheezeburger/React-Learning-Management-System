@@ -57,13 +57,10 @@ class StudentCoursePalette extends React.Component {
             });
             this.setState({ submissions });
 
-            console.log(submissions);
-
             submissions = submissions
                 .map(item => {
                     if (item.submissions) {
                         item.submissions = item.submissions.map(inner => {
-                            console.log(inner);
                             const assId = '-' + inner.assId;
 
                             const course = coursesList.filter(course => {
@@ -95,44 +92,6 @@ class StudentCoursePalette extends React.Component {
                     }
                 })
                 .flat();
-            // this.setState({ submissions });
-
-            // submissions = submissions.map(item => {
-            //     if(item.submissions){
-            //         const assId = '-' + item.submissions.assId;
-
-            //         const course = coursesList.filter(course => {
-            //             return course.uid === `-${item.courseId}`;
-            //         });
-
-            //         let assignment = course[0].assignments;
-            //         const keys = Object.keys(assignment);
-
-            //         assignment = keys.map(key => {
-            //             return {
-            //                 key,
-            //                 data: assignment[key]
-            //             };
-            //         });
-
-            //         assignment = assignment.filter(ass => {
-            //             return ass.key === assId;
-            //         });
-
-            //         assignment = assignment[0].data;
-
-            //         return {
-            //             ...item,
-            //             assTitle: assignment.title
-            //         };
-
-            //     }
-            //     return item;
-            // });
-
-            // submissions = submissions.filter(item => {
-            //     return item.submissions;
-            // })
         }
     }
 
@@ -341,29 +300,4 @@ class StudentCoursePalette extends React.Component {
     }
 }
 
-const styleCenter = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '60px'
-};
-
-const slimText = {
-    fontSize: '0.666em',
-    color: '#97969B',
-    fontWeight: 'lighter',
-    paddingBottom: 5
-};
-
-const titleStyle = {
-    padding: 5,
-    whiteSpace: 'nowrap',
-    fontWeight: 500,
-    fontSize: '14px'
-};
-
-const dataStyle = {
-    fontSize: '1.2em',
-    fontWeight: 500
-};
 export default compose(withFirebase, withCourse)(StudentCoursePalette);

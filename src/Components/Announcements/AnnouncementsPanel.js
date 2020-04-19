@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Avatar, Badge, Icon, IconButton, Drawer, Tag, Container, Divider } from 'rsuite';
+import { Avatar, Badge, Icon, IconButton, Drawer, Tag } from 'rsuite';
 import withCourse from '../Courses/Context/withCourse';
 
 class AnnouncementsPanel extends Component{
@@ -117,10 +117,7 @@ class AnnouncementsPanel extends Component{
                 </div>
     
             )
-        }
-
-        console.log(enrolledCourses);
-        
+        }        
     }
 
     render(){
@@ -140,7 +137,7 @@ class AnnouncementsPanel extends Component{
                         <Drawer.Title>Announcements</Drawer.Title>
                         <Drawer.Body style={{height: '100%'}}>
                             {
-                                this.props.authUser.roles.userRole == 'admin'?
+                                this.props.authUser.roles.userRole === 'admin'?
                                     this.renderAdmin()
                                 :   this.renderStudent()
                             

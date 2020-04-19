@@ -143,7 +143,7 @@ class Body extends React.Component {
 							dragable
 							fileListVisible={false}
 							listType="picture"
-							action="//jsonplaceholder.typicode.com/posts/"
+							// action="//jsonplaceholder.typicode.com/posts/"
 							onUpload={file => {
 								this.setState({ uploading: true });
 								this.previewFile(file.blobFile, value => {

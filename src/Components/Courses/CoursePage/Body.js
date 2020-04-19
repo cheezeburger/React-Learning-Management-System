@@ -152,8 +152,6 @@ export default class Body extends React.Component {
 	}
 
 	renderCurriculum( allowPreview, isCourseCreator, item, enrolledToCourse) {
-        const cid = this.props.match.params.id;
-
         if (allowPreview || isCourseCreator || enrolledToCourse) {
 			return (
 				<NavLink
@@ -210,7 +208,6 @@ export default class Body extends React.Component {
 					...curriculum[key],
 					curriculumId: key.substr(1)
 				}));
-				console.log('curriculum:', curriculum)
 			}
 
 			if(assignments){
@@ -240,8 +237,6 @@ export default class Body extends React.Component {
 
 		if (authUser && authUser.enrolledCourses) {
 			enrolledToCourse = authUser.enrolledCourses;
-			console.log('assignments',enrolledToCourse)
-
 			const keys = Object.keys(enrolledToCourse);
 
 			enrolledToCourse = keys.map(key => {
@@ -393,7 +388,7 @@ export default class Body extends React.Component {
 											}}>
 											Assignments
 										</h4>
-										{	(enrolledToCourse || authUser && authUser.roles.userRole === 'admin')?
+										{	(enrolledToCourse || (authUser && authUser.roles.userRole) === 'admin')?
 											<Panel header="Assignments" bordered bodyFill>
 												<Table height={400} data={assignments} style={{fontSize: '12px'}}>
 													<Table.Column width={50} align="center" resizable>

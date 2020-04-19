@@ -124,7 +124,6 @@ class AssignmentPage extends React.Component {
         const assignmentId = this.props.match.params.id;
         
         const attempted = (this.studentHasAttempted(assignmentId));
-        const authUser = (this.props.firebase.auth.currentUser)
 
         return (
             <Container style={{ minHeight: "120px" }}>
@@ -218,7 +217,7 @@ class AssignmentPage extends React.Component {
             })
             
             enrolledCourses = enrolledCourses.filter(item =>{
-                return item.courseId == courseId;
+                return item.courseId === courseId;
             })
             
             const dateNow = Date.now();
@@ -401,8 +400,6 @@ class AssignmentPage extends React.Component {
         );
     }
 }
-
-const condition = authUser => !!authUser;
 
 export default compose(
     withAuthentication,

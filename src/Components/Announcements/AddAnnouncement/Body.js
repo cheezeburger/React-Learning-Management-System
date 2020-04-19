@@ -31,7 +31,6 @@ class Body extends React.Component{
 	formSubmit() {
 		const { courseId, announcement } = this.state.formValue;
 
-        console.log(courseId);
 		if (!courseId ||!announcement) {
 			Alert.error("Please fill in all fields.", 5000);
 		} else {
@@ -78,7 +77,6 @@ class Body extends React.Component{
         this.getCreatedCourses();
     }
 	render() {
-        console.log(this.props.authUser)
 		return (
 			<div>
 				<Container style={{ flex: 1, flexDirection: "column" }}>

@@ -4,10 +4,6 @@ import { Alert } from 'rsuite';
 
 const withAssignment = Component => {
     class WithAssignment extends React.Component{
-        constructor(props){
-            super(props);
-        }
-
         updateAssignment = (courseId, assignmentId, questions) => {
             questions = questions? questions: [];
             this.props.firebase.assignments(courseId).child(assignmentId).update({questions}).then(()=>{

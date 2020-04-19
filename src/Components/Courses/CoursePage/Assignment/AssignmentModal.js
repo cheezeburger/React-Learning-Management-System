@@ -137,7 +137,6 @@ export default class AssignmentModal extends React.Component {
                             }
                         )
                         .then(rsp => {
-                            const assKey = rsp.key.substr(1);
                             window.location.reload(false);
                         });
                 }
@@ -280,7 +279,7 @@ export default class AssignmentModal extends React.Component {
                                     {this.state.formValue.type ? (
                                         <ButtonToolbar
                                             style={{ textAlign: 'center' }}>
-                                            {this.state.formValue.type ==
+                                            {this.state.formValue.type ===
                                             'file' ? (
                                                 <Button
                                                     appearance='ghost'
