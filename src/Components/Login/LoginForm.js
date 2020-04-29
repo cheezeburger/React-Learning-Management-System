@@ -95,8 +95,8 @@ export default class LoginForm extends Component{
                     <FormGroup>
                         <ButtonToolbar>
                             <div>
-                                <Button disabled= {isInvalid} appearance="ghost" onClick={this.formSubmit}>Login</Button>
-                                <Button appearance="link">Forgot password?</Button>
+                                <Button id="login" disabled= {isInvalid} appearance="ghost" onClick={this.formSubmit}>Login</Button>
+                                {/* <Button appearance="link">Forgot password?</Button> */}
                             </div>
                         </ButtonToolbar>
                     </FormGroup>

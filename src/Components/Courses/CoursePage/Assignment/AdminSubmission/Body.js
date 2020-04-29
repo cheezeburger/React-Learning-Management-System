@@ -265,6 +265,7 @@ export default class Body extends React.Component {
                                 </Button>
                             ) : (
                                 <Button
+                                    id='submitBtn'
                                     onClick={() =>
                                         this.onReviewSubmit(modalData)
                                     }
@@ -403,11 +404,12 @@ export default class Body extends React.Component {
                                             {rowData => {
                                                 return rowData.status ===
                                                     'new' ? (
-                                                    <p style={{ color: 'red' }}>
+                                                    <p id='status' style={{ color: 'red' }}>
                                                         Pending Review
                                                     </p>
                                                 ) : (
                                                     <p
+                                                        id='status'
                                                         style={{
                                                             color: 'Green'
                                                         }}>
@@ -429,6 +431,7 @@ export default class Body extends React.Component {
                                             {rowData => {
                                                 return (
                                                     <Button
+                                                        id='reviewBtn'
                                                         onClick={() =>
                                                             this.reviewAssignment(
                                                                 rowData

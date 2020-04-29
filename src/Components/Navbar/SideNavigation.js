@@ -71,7 +71,9 @@ export default class SideNavigation extends Component {
                                 textAlign: 'center',
                                 marginTop: '-10px',
                                 fontSize: '11px'
-                            }}>
+                            }}
+                            id="role"
+                        >
                             {role}
                         </p>
 

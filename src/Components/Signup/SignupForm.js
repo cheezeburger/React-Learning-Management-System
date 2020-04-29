@@ -130,7 +130,7 @@ export default class SignupForm extends Component{
 
                     <FormGroup>
                         <ButtonToolbar>
-                            <Button disabled= {isInvalid} appearance="ghost" onClick={this.formSubmit}>Signup</Button>
+                            <Button className='signup' disabled= {isInvalid} appearance="ghost" onClick={this.formSubmit}>Signup</Button>
                         </ButtonToolbar>
                     </FormGroup>
                 </Form>

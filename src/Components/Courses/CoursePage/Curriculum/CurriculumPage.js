@@ -124,7 +124,7 @@ class CurriculumPage extends React.Component{
                                 
                             </Navbar>
                             <Container style={{flex: 1}}>
-                                <Container style={{flex: 1, alignItems: 'center'}}>
+                                <Container id='curriculumEditor' style={{flex: 1, alignItems: 'center'}}>
                                     <SunEditor 
                                         placeholder="Please type here..."
                                         resizingBar= {this.state.sunEditor.resizingBar}

@@ -101,7 +101,7 @@ class AdminCoursePalette extends React.Component{
                                                                     course: course.course
                                                                 }
                                                             }}>
-                                                                <Button color="yellow" appearance="ghost">
+                                                                <Button id='editBtn' color="yellow" appearance="ghost">
                                                                     Edit
                                                                 </Button>
                                                             </Link>

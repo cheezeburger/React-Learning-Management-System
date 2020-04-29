@@ -211,7 +211,7 @@ class Body extends React.Component {
 								</FormGroup>
 								<FormGroup>
 									<ButtonToolbar>
-										<Button appearance="ghost" onClick={this.formSubmit}>
+										<Button id='saveBtn' appearance="ghost" onClick={this.formSubmit}>
 											Save
 										</Button>
 									</ButtonToolbar>

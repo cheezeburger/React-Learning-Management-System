@@ -104,7 +104,7 @@ export default class Body extends React.Component {
 						height: '55px',
 						color: '#202020'
 					}}>
-					<p style={{ fontSize: '16px' }}>Enrolled</p>
+					<p id="enrolled" style={{ fontSize: '16px' }}>Enrolled</p>
 				</Button>
 			);
 		} else {
@@ -115,6 +115,7 @@ export default class Body extends React.Component {
 						width: '100%',
 						height: '55px'
 					}}
+					id='enrollCourse'
 					onClick={this.enrollCourse}>
 					<p style={{ fontSize: '16px' }}>Enroll Course</p>
 				</Button>
@@ -190,7 +191,7 @@ export default class Body extends React.Component {
 		let isCourseCreator     = null;
 		const courseId          = this.props.match.params.id;
 		const authUser          = this.state.authUser ? this.state.authUser : null;
-
+		console.log(this.state.course)
 		let {
 			levelOfStudy,
 			description,
@@ -200,6 +201,7 @@ export default class Body extends React.Component {
 			title,
 			curriculum,
 			assignments,
+			qualification
 		} = this.state.course ? this.state.course : {};
 
 		if (this.state.course) {
@@ -286,7 +288,7 @@ export default class Body extends React.Component {
 									marginBottom: '50px',
 									minHeight: '100px'
 								}}>
-								<h2>{title}</h2>
+								<h2 id='title'>{title}</h2>
 								<p
 									style={{
 										marginTop: '40px',
@@ -308,6 +310,21 @@ export default class Body extends React.Component {
 										fontSize: '20px'
 									}}>
 									{duration} Hours
+								</p>
+							</Container>
+
+							<Container
+								style={{
+									marginBottom: '50px',
+									minHeight: '50px'
+								}}>
+								<h4 style={{ fontWeight: 'bold' }}>Academic Qualification</h4>
+								<p
+									style={{
+										marginTop: '40px',
+										fontSize: '20px'
+									}}>
+									{qualification[0].toUpperCase() + qualification.substr(1)}
 								</p>
 							</Container>
 

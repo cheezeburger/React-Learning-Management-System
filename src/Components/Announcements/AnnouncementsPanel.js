@@ -104,7 +104,7 @@ class AnnouncementsPanel extends Component{
                     {announcements.length? 
                         announcements.map((a, i) => {
                             return(
-                                <div key={i}>
+                                <div key={i} id="announcementItem">
                                     <Tag color="violet">{a.courseTitle}</Tag>
                                     <Tag>{a.createdOn} - <span style={{fontWeight: 'bold'}}>{a.createdBy? a.createdBy: 'Unknown'}</span></Tag>
                                     <p>{a.content}</p>
@@ -126,6 +126,7 @@ class AnnouncementsPanel extends Component{
                 <Badge content={null} >
                     <Avatar size="sm">
                     <IconButton  
+                    id='announcements'
                         icon={<Icon icon="bell" />}
                         onClick= {this.toggleDrawer}
                     />

@@ -124,6 +124,7 @@ class AssignmentPage extends React.Component {
         const assignmentId = this.props.match.params.id;
         
         const attempted = (this.studentHasAttempted(assignmentId));
+        const disabledAdmin = this.props.authUser? (this.props.authUser.roles.userRole === 'admin'? true : null) : false;
 
         return (
             <Container style={{ minHeight: "120px" }}>
@@ -163,6 +164,7 @@ class AssignmentPage extends React.Component {
                         <FormGroup>
                             {attempted?
                             <Button
+                                id='submitted'
                                 appearance="ghost"
                                 color="red"
                                 onClick={this.studentSubmitAnswer}
@@ -172,12 +174,13 @@ class AssignmentPage extends React.Component {
                                 Submitted
                             </Button>  
                             :<Button
+                                id="submit"
                                 appearance="ghost"
                                 onClick={this.studentSubmitAnswer}
                                 style={{ width: "100%" }}
-                                disabled= {attempted? true : false}
+                                disabled= {attempted || disabledAdmin? true : false}
                             >
-                                Finish and Submit
+                                {disabledAdmin ? <p>Admin Viewable Only</p> : <p>Finish and Submit</p>}
                             </Button>  
                             }
                             
@@ -373,22 +376,26 @@ class AssignmentPage extends React.Component {
         let isCourseCreator     = null;
 
         if (hasEditAuthority) {
-            coursesCreated = Object.keys(
-                authUser.coursesCreated
-            ).map((key) => ({
-                ...authUser.coursesCreated[key],
-                uid: key,
-            }));
-            coursesCreated = coursesCreated.map((item) => {
-                return item.courseId;
-            });
+            const coursesCreatedKey = authUser.coursesCreated? Object.keys(authUser.coursesCreated) : null;
 
-            const curriId = this.props.match.params.id;
-            const courseId = this.props.match.url
-                .replace(/\/.*?\//g, "")
-                .replace(curriId, "");
-
-            isCourseCreator = coursesCreated.includes(courseId);
+            if(coursesCreatedKey){
+                coursesCreated = Object.keys(
+                    authUser.coursesCreated
+                ).map((key) => ({
+                    ...authUser.coursesCreated[key],
+                    uid: key,
+                }));
+                coursesCreated = coursesCreated.map((item) => {
+                    return item.courseId;
+                });
+    
+                const curriId = this.props.match.params.id;
+                const courseId = this.props.match.url
+                    .replace(/\/.*?\//g, "")
+                    .replace(curriId, "");
+    
+                isCourseCreator = coursesCreated.includes(courseId);
+            }
         }
 
         return (

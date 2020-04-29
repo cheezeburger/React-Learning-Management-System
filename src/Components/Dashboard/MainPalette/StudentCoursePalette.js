@@ -239,6 +239,7 @@ class StudentCoursePalette extends React.Component {
                                                       return rowData.comments ? (
                                                           <>
                                                               <Button
+                                                                  id='showFeedback'
                                                                   onClick={
                                                                       this.open
                                                                   }>
@@ -260,9 +261,9 @@ class StudentCoursePalette extends React.Component {
                                                                               Instructor
                                                                               comments
                                                                           </p>
-                                                                          {
+                                                                          <p id='feedback'>{
                                                                               rowData.comments
-                                                                          }
+                                                                          }</p>
                                                                       </>
                                                                   </Modal.Body>
                                                                   <Modal.Footer>
